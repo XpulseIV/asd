@@ -28,8 +28,8 @@ namespace asd.connect4
             Console.Clear(); // Clear the console before printing the updated board
 
             Console.WriteLine("Connect 4");
-            Console.WriteLine("  0 1 2 3 4 5 6");
-            Console.WriteLine(" +-+-+-+-+-+-+-+");
+            Console.WriteLine("     0    1    2    3    4    5    6");
+            Console.WriteLine(" +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
     
             for (var row = 0; row < rows; row++)
             {
@@ -51,7 +51,7 @@ namespace asd.connect4
                 Console.WriteLine();
             }
 
-            Console.WriteLine(" +-+-+-+-+-+-+-+");
+            Console.WriteLine(" +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
         }
 
         private void DoMove(Int32 col, Int32 player) {
