@@ -75,7 +75,7 @@ namespace asd.connect4
         * Bitmap of the next possible valid moves for the current player
         * Including losing moves.
         */
-        private UInt64 Possible() => (this._mask + BottomMask) & BoardMask;
+        public UInt64 Possible() => (this._mask + BottomMask) & BoardMask;
 
         // return a bitmask containg a single 1 corresponding to the top cel of a given column
         private static UInt64 top_mask_col(Int32 col) => (UInt64)1 << (5 + col * 7);

@@ -66,7 +66,7 @@ namespace asd.connect4
         }
         
         public void Play() {
-            while (true) {
+            while (_board.Possible() != 0) {
                 this.ShowTable();
                 var input = false;
                 while(input == false)
@@ -80,6 +80,7 @@ namespace asd.connect4
                             this.DoMove(col, 1);
                             this.ShowTable();
                             Console.WriteLine(this._player1.Name + " has won!");
+                            Console.ReadLine();
                             this.Winner = this._player1;
                             return;
                         }
@@ -105,6 +106,7 @@ namespace asd.connect4
                             this.DoMove(col, 2);
                             this.ShowTable();
                             Console.WriteLine(this._player2.Name + " has won!");
+                            Console.ReadLine();
                             this.Winner = this._player2;
                             return;
                         }
@@ -117,6 +119,8 @@ namespace asd.connect4
                     }
                 }
             }
+
+            Winner = null!;
         }
     }
 }

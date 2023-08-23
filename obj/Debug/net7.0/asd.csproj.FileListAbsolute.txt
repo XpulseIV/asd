@@ -1,0 +1,14 @@
+C:\Users\malte.axner\asd\bin\Debug\net7.0\asd.exe
+C:\Users\malte.axner\asd\bin\Debug\net7.0\asd.deps.json
+C:\Users\malte.axner\asd\bin\Debug\net7.0\asd.runtimeconfig.json
+C:\Users\malte.axner\asd\bin\Debug\net7.0\asd.dll
+C:\Users\malte.axner\asd\bin\Debug\net7.0\asd.pdb
+C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.AssemblyInfoInputs.cache
+C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.AssemblyInfo.cs
+C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.csproj.CoreCompileInputs.cache
+C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.dll
+C:\Users\malte.axner\asd\obj\Debug\net7.0\refint\asd.dll
+C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.pdb
+C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.genruntimeconfig.cache
+C:\Users\malte.axner\asd\obj\Debug\net7.0\ref\asd.dll
