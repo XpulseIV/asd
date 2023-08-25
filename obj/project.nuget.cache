@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "EWdcfFc+aIdrtbqNM8nz9stQcg/HPnsrJnRpjDs7wPMFPiqVU71wb9WrX5pmDCVbsGPL1NP9O3V4mPfieGMsNQ==",
+  "dgSpecHash": "mk50L7/KBzzH50rr3Vcyyjm0x4aiqSq4uRX04sClvnDOEDhrdQaIBJnYLbYPCShgbO+GK7IvD7mf+Uym/NFKNw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\malte.axner\\asd\\asd.csproj",
+  "projectFilePath": "/home/maltea/asd/asd.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\malte.axner\\.nuget\\packages\\ansi.console\\2.5.0\\ansi.console.2.5.0.nupkg.sha512"
+    "/home/maltea/.nuget/packages/ansi.console/2.5.0/ansi.console.2.5.0.nupkg.sha512",
+    "/home/maltea/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.10/microsoft.aspnetcore.app.ref.7.0.10.nupkg.sha512"
   ],
   "logs": []
 }
