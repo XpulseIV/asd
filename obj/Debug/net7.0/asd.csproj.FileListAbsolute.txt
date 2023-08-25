@@ -12,3 +12,6 @@ C:\Users\malte.axner\asd\obj\Debug\net7.0\refint\asd.dll
 C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.pdb
 C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.genruntimeconfig.cache
 C:\Users\malte.axner\asd\obj\Debug\net7.0\ref\asd.dll
+C:\Users\malte.axner\asd\bin\Debug\net7.0\ANSIConsole.dll
+C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.csproj.AssemblyReference.cache
+C:\Users\malte.axner\asd\obj\Debug\net7.0\asd.csproj.CopyComplete

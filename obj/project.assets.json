@@ -1,11 +1,37 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "ANSI.Console/2.5.0": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/ANSIConsole.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/ANSIConsole.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "ANSI.Console/2.5.0": {
+      "sha512": "xVszQd1HA/EusmX/xGeomPBy6YIY5soaCKPuoqbOpZHP5Sfvg2xYdliBIQtcKVDUgNj+5G++LkFPP2Mtm0DITA==",
+      "type": "package",
+      "path": "ansi.console/2.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ansi.console.2.5.0.nupkg.sha512",
+        "ansi.console.nuspec",
+        "lib/net5.0/ANSIConsole.dll",
+        "logo_cropped.png"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "ANSI.Console >= 2.5.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\malte.axner\\.nuget\\packages\\": {},
@@ -50,6 +76,12 @@
     "frameworks": {
       "net7.0": {
         "targetAlias": "net7.0",
+        "dependencies": {
+          "ANSI.Console": {
+            "target": "Package",
+            "version": "[2.5.0, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

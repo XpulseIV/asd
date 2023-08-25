@@ -4,8 +4,8 @@ namespace asd.connect4
 {
     public class GameController
     {
-        private Connect4Player _p1;
-        private Connect4Player _p2;
+        private Connect4Player? _p1;
+        private Connect4Player? _p2;
 
         private UInt32 _games;
         
@@ -13,7 +13,8 @@ namespace asd.connect4
             var players = new Connect4Player[] {
                 new HumanPlayer("Malte"),
                 new HumanPlayer("Jabok"),
-                new RandomPlayer()
+                new RandomPlayer(),
+                new SmartPlayer()
             };
 
             Console.WriteLine("Players: ");

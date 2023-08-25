@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "0uaB1hLBdLImh5Dn/szz+PqEw4h00wIfytEXsUQWJ31Ur5mdztfwjWwK/m7TCck/RDHwNJm5HoPdBwpc+6UNSQ==",
+  "dgSpecHash": "EWdcfFc+aIdrtbqNM8nz9stQcg/HPnsrJnRpjDs7wPMFPiqVU71wb9WrX5pmDCVbsGPL1NP9O3V4mPfieGMsNQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\malte.axner\\asd\\asd.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\malte.axner\\.nuget\\packages\\ansi.console\\2.5.0\\ansi.console.2.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

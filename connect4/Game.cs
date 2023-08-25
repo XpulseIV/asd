@@ -1,3 +1,6 @@
+using System.Text;
+using ANSIConsole;
+
 namespace asd.connect4
 {
     public class Game
@@ -21,37 +24,34 @@ namespace asd.connect4
             this.Moves = 0;
         }
 
-        private void ShowTable() {
+        private void ShowTable(String pName, bool showPname, Int32 turn) {
             var rows = 6;
             var cols = 7;
 
             Console.Clear(); // Clear the console before printing the updated board
 
-            Console.WriteLine("Connect 4");
-            Console.WriteLine("     0    1    2    3    4    5    6");
-            Console.WriteLine(" +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-    
-            for (var row = 0; row < rows; row++)
+            StringBuilder s = new StringBuilder();
+            s.Append("Connect 4\n");
+
+            s.Append("+---+---+---+---+---+---+---+\n");
+
+            for (int r = 0; r < rows; r++)
             {
-                Console.Write($"{row}|");
-                for (var col = 0; col < cols; col++)
+                for (int c = 0; c < cols; c++)
                 {
-                    var piece = ' ';
-                    if (this._board.BoardArray[row, col] == 1)
-                    {
-                        piece = 'X';
-                    }
-                    else if (this._board.BoardArray[row, col] == 2)
-                    {
-                        piece = 'O';
-                    }
-
-                    Console.Write($"{piece}|");
+                    Int32 piece = _board.BoardArray[r, c];
+                    
+                    s.Append((piece == 1 || piece == 2) ? ((piece == 1) ? "| X " : "| O ") : "|   ");
                 }
-                Console.WriteLine();
-            }
 
-            Console.WriteLine(" +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                s.Append($"|\n+---+---+---+---+---+---+---+\n");
+            }
+            s.Append("  0   1   2   3   4   5   6\n");
+
+            s.Append(showPname ? pName + $": Your Turn. Turns left: {3 - turn}\n": $"Turns left. {3 - turn}");
+
+            Console.WriteLine(s);
+            
         }
 
         private void DoMove(Int32 col, Int32 player) {
@@ -66,19 +66,30 @@ namespace asd.connect4
         }
         
         public void Play() {
+            String position = ""; 
+            Int32 turns = 0;
             while (_board.Possible() != 0) {
-                this.ShowTable();
+                if ((turns != 0) && (turns % 3 == 0))
+                {
+                    Connect4Player temp = _player1;
+                    _player1 = _player2;
+                    _player2 = temp;
+
+                    turns = 0;
+                }
+                
+                this.ShowTable(_player1.Name, true, turns);
                 var input = false;
                 while(input == false)
                 {
-                    Int32 col = this._player1.Move('X');
+                    Int32 col = this._player1.Move('X', position);
                     if(col < 7 && this._board.CanPlay(col))
                     {
                         input = true;
 
                         if (this._board.IsWinningMove(col)) {
                             this.DoMove(col, 1);
-                            this.ShowTable();
+                            this.ShowTable("", false, turns);
                             Console.WriteLine(this._player1.Name + " has won!");
                             Console.ReadLine();
                             this.Winner = this._player1;
@@ -86,6 +97,8 @@ namespace asd.connect4
                         }
                         
                         this.DoMove(col, 1);
+                        position += Convert.ToString(col + 1);
+                        Console.ReadLine();
                     }
                     else
                     {
@@ -93,18 +106,18 @@ namespace asd.connect4
                     }
                 }
 
-                this.ShowTable();
+                this.ShowTable(_player2.Name, true, turns);
                 input = false;
                 while (input == false)
                 {
-                    Int32 col = this._player2.Move('O');
+                    Int32 col = this._player2.Move('O', position);
                     if (col < 7 && this._board.CanPlay(col))
                     {
                         input = true;
                         
                         if (this._board.IsWinningMove(col)) {
                             this.DoMove(col, 2);
-                            this.ShowTable();
+                            this.ShowTable("", false, turns);
                             Console.WriteLine(this._player2.Name + " has won!");
                             Console.ReadLine();
                             this.Winner = this._player2;
@@ -112,12 +125,15 @@ namespace asd.connect4
                         }
                         
                         this.DoMove(col, 2);
+                        Console.ReadLine();
                     }
                     else
                     {
                         Console.WriteLine("You supplied an invalid move, try again!");
                     }
                 }
+
+                turns++;
             }
 
             Winner = null!;

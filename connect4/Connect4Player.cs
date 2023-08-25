@@ -4,6 +4,6 @@ namespace asd.connect4
     {
         public String Name { get; protected set; }
 
-        public abstract Int32 Move(Char moveRepresentationChar);
+        public abstract Int32 Move(Char moveRepresentationChar, String position);
     }
 }
