@@ -1,3 +1,5 @@
+using System;
+
 namespace asd.connect4.Players
 {
     internal sealed class HumanPlayer : Connect4Player

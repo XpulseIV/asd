@@ -1,5 +1,4 @@
 ﻿using asd.connect4;
-using asd.connect4.Players;
 
 var connect4 = new GameController();
 

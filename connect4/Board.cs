@@ -1,3 +1,5 @@
+using System;
+
 namespace asd.connect4
 {
     internal sealed class Board
