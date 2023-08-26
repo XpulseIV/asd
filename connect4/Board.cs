@@ -1,23 +1,16 @@
 namespace asd.connect4
 {
-    public class Board
+    internal sealed class Board
     {
-        public Int32[,] BoardArray;
-
-        public Board() {
-            this.BoardArray = new Int32[6, 7];
-            this._currentPosition = 0;
-            this._mask = 0;
-            this.Moves = 0;
-        }
+        public readonly Int32[,] BoardArray = new Int32[7, 8];
 
         private UInt64 _currentPosition;
         private UInt64 _mask;
-        
-        public UInt32 Moves { get; private set; }
-        
+
+        private UInt32 Moves { get; set; }
+
         /**
-        * @parmam position, a bitmap of the player to evaluate the winning pos
+        * @param position, a bitmap of the player to evaluate the winning pos
         * @param mask, a mask of the already played spots
         *
         * @return a bitmap of all the winning free spots making an alignment
@@ -27,32 +20,32 @@ namespace asd.connect4
             UInt64 r = (position << 1) & (position << 2) & (position << 3);
 
             //horizontal
-            UInt64 p = (position << (6 + 1)) & (position << 2 * (6 + 1));
-            r |= p & (position << 3 * (6 + 1));
+            UInt64 p = (position << (6 + 1)) & (position << (2 * (6 + 1)));
+            r |= p & (position << (3 * (6 + 1)));
             r |= p & (position >> (6 + 1));
-            p = (position >> (6 + 1)) & (position >> 2 * (6 + 1));
+            p = (position >> (6 + 1)) & (position >> (2 * (6 + 1)));
             r |= p & (position << (6 + 1));
-            r |= p & (position >> 3 * (6 + 1));
+            r |= p & (position >> (3 * (6 + 1)));
 
             //diagonal 1
-            p = (position << 6) & (position << 2 * 6);
-            r |= p & (position << 3 * 6);
+            p = (position << 6) & (position << (2 * 6));
+            r |= p & (position << (3 * 6));
             r |= p & (position >> 6);
-            p = (position >> 6) & (position >> 2 * 6);
+            p = (position >> 6) & (position >> (2 * 6));
             r |= p & (position << 6);
-            r |= p & (position >> 3 * 6);
+            r |= p & (position >> (3 * 6));
 
             //diagonal 2
-            p = (position << (6 + 2)) & (position << 2 * (6 + 2));
-            r |= p & (position << 3 * (6 + 2));
+            p = (position << (6 + 2)) & (position << (2 * (6 + 2)));
+            r |= p & (position << (3 * (6 + 2)));
             r |= p & (position >> (6 + 2));
-            p = (position >> (6 + 2)) & (position >> 2 * (6 + 2));
+            p = (position >> (6 + 2)) & (position >> (2 * (6 + 2)));
             r |= p & (position << (6 + 2));
-            r |= p & (position >> 3 * (6 + 2));
+            r |= p & (position >> (3 * (6 + 2)));
 
             return r & (BoardMask ^ mask);
         }
-        
+
         /**
         * Return a bitmask of the possible winning positions for the current player
         */
@@ -70,7 +63,7 @@ namespace asd.connect4
         private const UInt64 BottomMask = 4432676798593;
 
         private const UInt64 BoardMask = 279258638311359;
-        
+
         /**
         * Bitmap of the next possible valid moves for the current player
         * Including losing moves.
@@ -78,7 +71,7 @@ namespace asd.connect4
         public UInt64 Possible() => (this._mask + BottomMask) & BoardMask;
 
         // return a bitmask containg a single 1 corresponding to the top cel of a given column
-        private static UInt64 top_mask_col(Int32 col) => (UInt64)1 << (5 + col * 7);
+        private static UInt64 top_mask_col(Int32 col) => (UInt64)1 << (5 + (col * 7));
 
         // return a bitmask containg a single 1 corresponding to the bottom cell of a given column
         private static UInt64 bottom_mask_col(Int32 col) => (UInt64)1 << (col * 7);
@@ -105,7 +98,7 @@ namespace asd.connect4
             this._mask |= move;
             this.Moves++;
         }
-        
+
         /**
         * Plays a playable column.
         * This function should not be called on a non-playable column or a column making an alignment.
