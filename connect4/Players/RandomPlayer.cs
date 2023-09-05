@@ -12,6 +12,6 @@ namespace asd.connect4.Players
             this._random = new Random();
         }
 
-        internal override Int32 Move(Char moveRepresentationChar, String position) => this._random.Next(0, 7);
+        internal override Int32 Move(Char moveRepresentationChar) => this._random.Next(0, 7);
     }
 }

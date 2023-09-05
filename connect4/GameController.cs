@@ -14,8 +14,7 @@ namespace asd.connect4
             var players = new Connect4Player[] {
                 new HumanPlayer("Malte"),
                 new HumanPlayer("Jabok"),
-                new RandomPlayer(),
-                new SmartPlayer()
+                new RandomPlayer()
             };
 
             Console.WriteLine("Players: ");

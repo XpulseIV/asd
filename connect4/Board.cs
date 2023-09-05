@@ -1,5 +1,3 @@
-using System;
-
 namespace asd.connect4
 {
     internal sealed class Board
@@ -22,28 +20,28 @@ namespace asd.connect4
             UInt64 r = (position << 1) & (position << 2) & (position << 3);
 
             //horizontal
-            UInt64 p = (position << (6 + 1)) & (position << (2 * (6 + 1)));
-            r |= p & (position << (3 * (6 + 1)));
-            r |= p & (position >> (6 + 1));
-            p = (position >> (6 + 1)) & (position >> (2 * (6 + 1)));
-            r |= p & (position << (6 + 1));
-            r |= p & (position >> (3 * (6 + 1)));
+            UInt64 p = (position << 7) & (position << 14);
+            r |= p & (position << 21);
+            r |= p & (position >> 7);
+            p = (position >> 7) & (position >> 14);
+            r |= p & (position >> 21);
+            r |= p & (position << 7);
 
             //diagonal 1
             p = (position << 6) & (position << (2 * 6));
             r |= p & (position << (3 * 6));
             r |= p & (position >> 6);
             p = (position >> 6) & (position >> (2 * 6));
-            r |= p & (position << 6);
             r |= p & (position >> (3 * 6));
+            r |= p & (position << 6);
 
             //diagonal 2
             p = (position << (6 + 2)) & (position << (2 * (6 + 2)));
             r |= p & (position << (3 * (6 + 2)));
             r |= p & (position >> (6 + 2));
             p = (position >> (6 + 2)) & (position >> (2 * (6 + 2)));
-            r |= p & (position << (6 + 2));
             r |= p & (position >> (3 * (6 + 2)));
+            r |= p & (position << (6 + 2));
 
             return r & (BoardMask ^ mask);
         }
