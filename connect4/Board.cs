@@ -28,20 +28,20 @@ namespace asd.connect4
             r |= p & (position << 7);
 
             //diagonal 1
-            p = (position << 6) & (position << (2 * 6));
-            r |= p & (position << (3 * 6));
+            p = (position << 6) & (position << 12);
+            r |= p & (position << 18);
             r |= p & (position >> 6);
-            p = (position >> 6) & (position >> (2 * 6));
-            r |= p & (position >> (3 * 6));
+            p = (position >> 6) & (position >> 12);
+            r |= p & (position >> 18);
             r |= p & (position << 6);
 
             //diagonal 2
-            p = (position << (6 + 2)) & (position << (2 * (6 + 2)));
-            r |= p & (position << (3 * (6 + 2)));
-            r |= p & (position >> (6 + 2));
-            p = (position >> (6 + 2)) & (position >> (2 * (6 + 2)));
-            r |= p & (position >> (3 * (6 + 2)));
-            r |= p & (position << (6 + 2));
+            p = (position << 8) & (position << 16);
+            r |= p & (position << 24);
+            r |= p & (position >> 8);
+            p = (position >> 8) & (position >> 16);
+            r |= p & (position >> 24);
+            r |= p & (position << 8);
 
             return r & (BoardMask ^ mask);
         }

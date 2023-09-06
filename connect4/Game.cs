@@ -94,7 +94,7 @@ namespace asd.connect4
                     var input = false;
                     while (input == false)
                     {
-                        Int32 col = this._player1.Move(playerChar);
+                        Int32 col = playerPlayer.Move(playerChar);
                         if ((col < 7) && this._board.CanPlay(col))
                         {
                             input = true;
