@@ -22,12 +22,12 @@ namespace asd.connect4
             this._board = new Board();
         }
 
-        private void ShowTable(String pName, Boolean showPname, Int32 turn, Boolean showTables)
+        private void ShowTable(String pName, Boolean showPname, Int32 turns, Boolean showTables)
         {
             if (!showTables) return;
 
-            const Int32 rows = 6;
             const Int32 cols = 7;
+            const Int32 rows = 6;
 
             Console.Clear();
 
@@ -36,13 +36,19 @@ namespace asd.connect4
 
             s.Append("+---+---+---+---+---+---+---+\n");
 
-            for (var r = 0; r < rows; r++)
+            for (var r = rows - 1; r >= 0; r--)
             {
                 for (var c = 0; c < cols; c++)
                 {
-                    Int32 piece = this._board.BoardArray[r, c];
+                    char playerSymbol = (this._board.yellow) ? 'X' : 'O';
+                    char opponentSymbol = (this._board.yellow) ? 'O' : 'X';
 
-                    s.Append(piece is 1 or 2 ? piece == 1 ? "| X " : "| O " : "|   ");
+                    s.Append((this._board._currentPosition & ((UInt64)1 << (c * 7 + r))) != 0
+                        ? $"| {playerSymbol} "
+                        : ((this._board._mask & ((UInt64)1 << (c * 7 + r))) != 0
+                            ? $"| {opponentSymbol} "
+                            : "|   "));
+
                 }
 
                 s.Append("|\n+---+---+---+---+---+---+---+\n");
@@ -50,22 +56,9 @@ namespace asd.connect4
 
             s.Append("  0   1   2   3   4   5   6\n");
 
-            s.Append(showPname ? pName + $": Your Turn. Turns left: {3 - turn}\n" : $"Turns left. {3 - turn}");
+            s.Append(showPname ? pName + $": Your Turn. Turns left: {3 - turns}\n" : $"Turns left. {3 - turns}");
 
             Console.WriteLine(s);
-        }
-
-        private void DoMove(Int32 col, Int32 player)
-        {
-            this._board.PlayCol(col);
-
-            for (var row = 5; row >= 0; row--)
-            {
-                if (this._board.BoardArray[row, col] != 0) continue;
-
-                this._board.BoardArray[row, col] = player;
-                break;
-            }
         }
 
         public void Play()
@@ -81,13 +74,15 @@ namespace asd.connect4
                 {
                     (this._player1, this._player2) = (this._player2, this._player1);
 
+                    this._board.switched = !this._board.switched;
+
                     turns = 0;
                 }
-
+                
                 for (int i = 1; i < 3; i++)
                 {
                     Char playerChar = i == 1 ? 'X' : 'O';
-                    Connect4Player playerPlayer = i == 1 ? _player1 : _player2;
+                    Connect4Player playerPlayer = (i == 1 ? _player1 : _player2);
 
                     this.ShowTable(playerPlayer.Name, true, turns, showTables);
 
@@ -99,9 +94,9 @@ namespace asd.connect4
                         {
                             input = true;
 
-                            if (this._board.IsWinningMove(col))
+                            if (this._board.IsWinningMove(col) && (_board.switched == false) == true)
                             {
-                                this.DoMove(col, i);
+                                this._board.PlayCol(col, this._board);
 
                                 this.ShowTable("", false, turns, showTables);
 
@@ -115,7 +110,7 @@ namespace asd.connect4
                                 return;
                             }
 
-                            this.DoMove(col, i);
+                            this._board.PlayCol(col, this._board);
                         }
                         else
                         {

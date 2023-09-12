@@ -2,12 +2,13 @@ namespace asd.connect4
 {
     internal sealed class Board
     {
-        public readonly Int32[,] BoardArray = new Int32[7, 8];
-
-        private UInt64 _currentPosition;
-        private UInt64 _mask;
+        public UInt64 _currentPosition;
+        public UInt64 _mask;
 
         private UInt32 Moves { get; set; }
+
+        public Boolean switched = false;
+        public Boolean yellow = true;
 
         /**
         * @param position, a bitmap of the player to evaluate the winning pos
@@ -15,7 +16,7 @@ namespace asd.connect4
         *
         * @return a bitmap of all the winning free spots making an alignment
         */
-        private static UInt64 compute_winning_position(UInt64 position, UInt64 mask) {
+        private static UInt64 winning_position(UInt64 position, UInt64 mask) {
             // vertical;
             UInt64 r = (position << 1) & (position << 2) & (position << 3);
 
@@ -49,7 +50,7 @@ namespace asd.connect4
         /**
         * Return a bitmask of the possible winning positions for the current player
         */
-        private UInt64 winning_position() => compute_winning_position(this._currentPosition, this._mask);
+        private UInt64 winning_position() => winning_position(this._currentPosition, this._mask);
 
         /**
         * Indicates whether the current player wins by playing a given column.
@@ -105,7 +106,8 @@ namespace asd.connect4
         *
         * @param col: 0-based index of a playable column.
         */
-        public void PlayCol(Int32 col) {
+        public void PlayCol(Int32 col, Board b) {
+            b.yellow = !b.yellow;
             this.Play((this._mask + bottom_mask_col(col)) & column_mask(col));
         }
     }
