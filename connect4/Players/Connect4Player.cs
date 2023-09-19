@@ -6,6 +6,6 @@ namespace asd.connect4
     {
         internal String Name { get; init; } = null!;
 
-        internal abstract Int32 Move(Char moveRepresentationChar);
+        internal abstract Int32 Move(Char moveRepresentationChar, String pos);
     }
 }

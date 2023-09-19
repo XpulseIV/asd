@@ -10,16 +10,19 @@ namespace asd.connect4
 
         private Int32 _games;
 
-        public void Setup() {
+        public void Setup()
+        {
             var players = new Connect4Player[] {
                 new HumanPlayer("Malte"),
                 new HumanPlayer("Jabok"),
-                new RandomPlayer()
+                new RandomPlayer(),
+                new SmurfPlayer()
             };
 
             Console.WriteLine("Players: ");
 
-            for (var i = 0; i < players.Length; i++) {
+            for (var i = 0; i < players.Length; i++)
+            {
                 Console.WriteLine($"{i}: {players[i].Name}");
             }
 
@@ -37,7 +40,8 @@ namespace asd.connect4
             this._games = Int32.Parse(Console.ReadLine() ?? String.Empty);
         }
 
-        private static void Fillout(Connect4Player playerOne, Connect4Player playerTwo, Int32 p1Wins, Int32 p2Wins, Int32 draws, Int32 games) {
+        private static void Fillout(Connect4Player playerOne, Connect4Player playerTwo, Int32 p1Wins, Int32 p2Wins, Int32 draws, Int32 games)
+        {
             Console.Clear();
 
             // Player 1
@@ -97,29 +101,33 @@ namespace asd.connect4
             Console.Write(diff != 0 ? diff : "");
         }
 
-        public void Start() {
+        public void Start()
+        {
             var p1Wins = 0;
             var p2Wins = 0;
             var draws = 0;
 
-            for (var i = 0; i < this._games; i++) {
+            for (var i = 0; i < this._games; i++)
+            {
                 var game = new Game(this._p1!, this._p2!);
                 game.Play();
 
-                if (game.Winner == this._p1) {
+                if (game.Winner == this._p1)
+                {
                     p1Wins++;
                 }
-                else if (game.Winner == this._p2) {
+                else if (game.Winner == this._p2)
+                {
                     p2Wins++;
                 }
-                else if (game.Winner is null) {
+                else if (game.Winner is null)
+                {
                     draws++;
                 }
-            }
 
-            Console.Clear();
-            Fillout(this._p1!, this._p2!, p1Wins, p2Wins, draws, this._games);
-            Console.ReadKey();
+                Console.Clear();
+                Fillout(this._p1!, this._p2!, p1Wins, p2Wins, draws, this._games);
+            }
         }
     }
 }

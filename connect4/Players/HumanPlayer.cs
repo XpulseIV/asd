@@ -8,7 +8,7 @@ namespace asd.connect4.Players
             this.Name = name;
         }
 
-        internal override Int32 Move(Char moveRepresentationChar) {
+        internal override Int32 Move(Char moveRepresentationChar, String pos) {
             while (true) {
                 Console.SetCursorPosition(0, 17);
 

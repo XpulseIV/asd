@@ -22,7 +22,7 @@ namespace asd.connect4
             this._board = new Board();
         }
 
-        private void ShowTable(String pName, Boolean showPname, Int32 turns, Boolean showTables)
+        private void ShowTable(String pName, Boolean showPname, Int32 turns, Boolean showTables, Boolean playersSwitched)
         {
             if (!showTables) return;
 
@@ -40,8 +40,8 @@ namespace asd.connect4
             {
                 for (var c = 0; c < cols; c++)
                 {
-                    char playerSymbol = (this._board.yellow) ? 'X' : 'O';
-                    char opponentSymbol = (this._board.yellow) ? 'O' : 'X';
+                    char playerSymbol = this._board.yellow ? 'X' : 'O';
+                    char opponentSymbol = this._board.yellow ? 'O' : 'X';
 
                     s.Append((this._board._currentPosition & ((UInt64)1 << (c * 7 + r))) != 0
                         ? $"| {playerSymbol} "
@@ -56,7 +56,7 @@ namespace asd.connect4
 
             s.Append("  0   1   2   3   4   5   6\n");
 
-            s.Append(showPname ? pName + $": Your Turn. Turns left: {3 - turns}\n" : $"Turns left. {3 - turns}");
+            s.Append(showPname ? pName + $": Your Turn. Turns left: {3 - turns}, Players switched: {playersSwitched}\n" : $"Turns left. {3 - turns}, Players switched: {playersSwitched}");
 
             Console.WriteLine(s);
         }
@@ -66,39 +66,41 @@ namespace asd.connect4
             var turns = 0;
             this.Winner = null;
 
+            String pos = "";
+
             Boolean showTables = _player1 is HumanPlayer || _player2 is HumanPlayer;
 
             while (this._board.Possible() != 0)
             {
-                if ((turns != 0) && ((turns % 3) == 0))
+                /*if ((turns != 0) && ((turns % 3) == 0))
                 {
                     (this._player1, this._player2) = (this._player2, this._player1);
 
                     this._board.switched = !this._board.switched;
 
                     turns = 0;
-                }
+                }*/
                 
                 for (int i = 1; i < 3; i++)
                 {
                     Char playerChar = i == 1 ? 'X' : 'O';
-                    Connect4Player playerPlayer = (i == 1 ? _player1 : _player2);
+                    Connect4Player playerPlayer = i == 1 ? _player1 : _player2;
 
-                    this.ShowTable(playerPlayer.Name, true, turns, showTables);
+                    this.ShowTable(playerPlayer.Name, true, turns, showTables, _board.switched);
 
                     var input = false;
                     while (input == false)
                     {
-                        Int32 col = playerPlayer.Move(playerChar);
+                        Int32 col = playerPlayer.Move(playerChar, pos);
                         if ((col < 7) && this._board.CanPlay(col))
                         {
                             input = true;
 
-                            if (this._board.IsWinningMove(col) && (_board.switched == false) == true)
+                            if (this._board.IsWinningMove(col))
                             {
                                 this._board.PlayCol(col, this._board);
 
-                                this.ShowTable("", false, turns, showTables);
+                                this.ShowTable("", false, turns, showTables, _board.switched);
 
                                 if (showTables)
                                 {
@@ -111,10 +113,11 @@ namespace asd.connect4
                             }
 
                             this._board.PlayCol(col, this._board);
+                            pos += Convert.ToChar(col);
                         }
                         else
                         {
-                            if (showTables) Console.WriteLine("You supplied an invalid move, try again!");
+                            if (!showTables) Console.WriteLine($"You supplied an invalid move, try again! {col}");
                         }
                     }
                 }
